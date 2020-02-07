@@ -1,0 +1,11 @@
+{
+  "ProfileTitle": "Profile",
+  "Name": "Name",
+  "HelperTextEnterName": "The Name field must not be empty.",
+  "BtnTextUpdate": "Update",
+  "Menu_Bill": "Bill",
+  "Menu_History": "History",
+  "Menu_Planning": "Planning",
+  "Menu_Record": "New Record",
+  "Menu_Categories": "Categories"
+}
