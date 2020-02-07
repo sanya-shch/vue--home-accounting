@@ -5,7 +5,7 @@
     </div>
 
     <div class="history-chart">
-      <canvas></canvas>
+      <canvas ref="canvas"></canvas>
     </div>
 
     <Loader v-if="loading"/>
@@ -31,8 +31,10 @@
 <script>
   import HistoryTable from "../components/HistoryTable";
   import pagination from "../mixins/pagination";
+  import {Pie} from 'vue-chartjs'
 
   export default {
+    extends: Pie,
     mixins: [pagination],
     data: () => ({
       records: [],
@@ -50,6 +52,35 @@
           typeClass: r.type === 'income' ? 'green' : 'red'
         }
       }))
+
+      this.renderChart({
+        labels: categories.map(c => c.title),
+        datasets: [
+          {
+            label: 'Расходы по категориям',
+            backgroundColor: [
+              '#0d3f67',
+              '#ffb6b9',
+              '#fae3d9',
+              '#bbded6',
+              '#8ac6d1',
+              '#fff1ac',
+              '#f9bcdd',
+              '#f2f4f6',
+              '#1ee3cf',
+              '#6b48ff'
+            ],
+            data: categories.map(c => {
+              return this.records.reduce((total, rec) => {
+                if (rec.categoryId === c.id && rec.type === 'outcome') {
+                  total += rec.amount*1
+                }
+                return total
+              }, 0)
+            })
+          }
+        ]
+      })
 
       this.loading = false
     },
